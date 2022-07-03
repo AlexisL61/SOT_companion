@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  dart_discord_rpc
   flutter_acrylic
   screen_retriever
   window_manager

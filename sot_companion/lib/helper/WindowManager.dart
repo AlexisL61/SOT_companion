@@ -5,7 +5,8 @@ class SOT_WindowsManager {
   SOT_WindowsManager();
 
   static changeSize(Size newSize) async {
-    if ((await windowManager.getSize()).width != newSize.width) {
+    Size screenSize = await windowManager.getSize();
+    if (screenSize.width != newSize.width || screenSize.height != newSize.height) {
       await windowManager.setSize(newSize);
       await windowManager.setAlignment(Alignment.topRight);
       //await windowManager.setBounds(Offset(1,1) & newSize, animate: true);
