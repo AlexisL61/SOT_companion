@@ -42,7 +42,7 @@ class _CookTime_PageState extends State<CookTime_Page> {
   }
 
   Widget _buildSelectFood() {
-    SOT_WindowsManager.changeSize(Size(250, 100));
+    //SOT_WindowsManager.changeSize(Size(250, 100));
     return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -57,7 +57,7 @@ class _CookTime_PageState extends State<CookTime_Page> {
   }
 
   Widget _buildCooking() {
-    SOT_WindowsManager.changeSize(Size(250, 100));
+    //SOT_WindowsManager.changeSize(Size(250, 100));
     print(double.maxFinite);
     return Container(
         padding: EdgeInsets.only(right: 10),

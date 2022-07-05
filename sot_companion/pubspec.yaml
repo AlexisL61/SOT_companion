@@ -32,6 +32,7 @@ dependencies:
   window_manager: ^0.2.5
   flutter_acrylic:
   dart_discord_rpc:
+  webview_windows:
 
 
   # The following adds the Cupertino Icons font to your application.

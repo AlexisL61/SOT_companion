@@ -2,7 +2,10 @@ import 'package:dart_discord_rpc/dart_discord_rpc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:sot_companion/class/module.dart';
+import 'package:sot_companion/helper/WebviewManager.dart';
 import 'package:sot_companion/helper/WindowManager.dart';
+import 'package:sot_companion/modules/discord_rpc/class/sot_activity.dart';
+import 'package:webview_windows/webview_windows.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -11,6 +14,7 @@ void main() async {
   // Must add this line.
   await Window.initialize();
   await windowManager.ensureInitialized();
+  await SOT_WebviewManager.init();
 
   WindowOptions windowOptions = const WindowOptions(
     size: Size(100, 50),
@@ -75,11 +79,23 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   String status = "MINIMIZE";
   Module? moduleSelected;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController =
+        TabController(vsync: this, length: Module.moduleList.length);
+  }
 
   Widget build(BuildContext context) {
+    if (moduleSelected == null) {
+      SOT_WindowsManager.changeSize(const Size(400, 100));
+    }
     late Widget scaffoldChild;
     if (status == "MODULES") {
       scaffoldChild = _buildModules();
@@ -90,40 +106,68 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildModules() {
-    if (moduleSelected == null) {
-      SOT_WindowsManager.changeSize(Size(250, 50));
-    }
-    return Column(children: [
-      Row(children: [
-        InkWell(
-          child: Icon(Icons.arrow_right),
-          onTap: () {
-            setState(() {
-              status = "MINIMIZE";
-            });
-          },
-        ),
-        Expanded(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(Module.moduleList.length, (index) {
-                  return Expanded(child:Row(mainAxisAlignment: MainAxisAlignment.center, children: [ _buildModuleIcon(Module.moduleList[index])]));
-                })))
-      ]),
-      moduleSelected != null
-          ? Expanded(
-              child: Column(children: [
-                SizedBox(height: 4,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal:10),
-                  height: 2,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.white),
-                  SizedBox(height: 4,),
-              Expanded(child: moduleSelected!.mainPage)
-            ]))
-          : Container()
-    ]);
+    return _buildAllModulesColumn();
+  }
+
+  Widget _buildWebView() {
+    return Expanded(child: Webview(SOT_WebviewManager.currentController));
+  }
+
+  Widget _buildAllModulesColumn() {
+    return Container(
+        child: DefaultTabController(
+            length: 3,
+            child: Column(children: [
+              Row(children: [
+                InkWell(
+                  child: Icon(Icons.arrow_right),
+                  onTap: () {
+                    status = "MINIMIZE";
+                    setState(() {});
+                  },
+                ),
+                Expanded(
+                    child: TabBar(
+                        onTap: (int index) {
+                          WindowManager.instance
+                              .setSize(Module.moduleList[index].size);
+                        },
+                        controller: _tabController,
+                        tabs: List.generate(Module.moduleList.length, (index) {
+                          return Tab(
+                                  child: _buildModuleIcon(
+                                      Module.moduleList[index]));
+                        })))
+              ]),
+              Expanded(
+                  child: TabBarView(
+                      controller: _tabController,
+                      children:
+                          List.generate(Module.moduleList.length, (index) {
+                        return Module.moduleList[index].mainPage;
+                  })))
+            ])));
+  }
+
+  Widget _buildModulePage() {
+    return moduleSelected != null
+        ? Container(
+            child: Expanded(
+                child: Column(children: [
+            SizedBox(
+              height: 4,
+            ),
+            Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                height: 2,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white),
+            SizedBox(
+              height: 4,
+            ),
+            Expanded(child: moduleSelected!.mainPage)
+          ])))
+        : Container();
   }
 
   Widget _buildMinimize() {
@@ -144,8 +188,9 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Colors.transparent,
               backgroundImage: NetworkImage(
                   "https://static.wikia.nocookie.net/seaofthieves_gamepedia/images/b/b8/Investigator_of_Dark_Intrigue_emblem.png/revision/latest/scale-to-width-down/1000?cb=20220630155533"),
-            ), 
+            ),
             onTap: () {
+              _tabController.animateTo(0);
               status = "MODULES";
               setState(() {});
             }),
@@ -154,16 +199,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildModuleIcon(Module module) {
-    return InkWell(
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          backgroundImage: NetworkImage(module.image),
-        ),
-        onTap: () {
-          if (moduleSelected == null || moduleSelected!.name != module.name) {
-            moduleSelected = module;
-            setState(() {});
-          }
-        });
+    return CircleAvatar(
+      backgroundColor: Colors.transparent,
+      backgroundImage: NetworkImage(module.image),
+    )
+    ;
   }
 }

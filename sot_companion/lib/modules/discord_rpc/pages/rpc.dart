@@ -42,7 +42,7 @@ class _RPC_PageState extends State<RPC_Page> {
   }
 
   Widget _buildMenu() {
-    SOT_WindowsManager.changeSize(const Size(250, 300));
+    //SOT_WindowsManager.changeSize(const Size(250, 300));
     return Row(children: [
       Expanded(
           child: Column(
