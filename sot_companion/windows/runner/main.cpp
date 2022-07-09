@@ -36,8 +36,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   while (::GetMessage(&msg, nullptr, 0, 0)) {
       if (msg.message == WM_HOTKEY)
       {
-          printf("HOTKEY");
-          printf("%p vs %p\n",GetFocus(), window.GetHandle());
           SetForegroundWindow(window.GetHandle());
           SetFocus(window.GetHandle());
       }

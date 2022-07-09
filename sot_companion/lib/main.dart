@@ -101,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   Widget build(BuildContext context) {
     if (moduleSelected == null) {
+      print("HEY");
       SOT_WindowsManager.changeSize(const Size(400, 100));
     }
     late Widget scaffoldChild;
@@ -136,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage>
                 Expanded(
                     child: TabBar(
                         onTap: (int index) {
+                              moduleSelected = Module.moduleList[index];
                           WindowManager.instance
                               .setSize(Module.moduleList[index].size);
                         },
@@ -199,6 +201,7 @@ class _MyHomePageState extends State<MyHomePage>
             onTap: () {
               _tabController.animateTo(0);
               status = "MODULES";
+              //moduleSelected = Module.moduleList[0];
               setState(() {});
             }),
       ]))
