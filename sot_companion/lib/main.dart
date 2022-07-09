@@ -30,6 +30,7 @@ void main() async {
     );
     await windowManager.show();
     await windowManager.setAlwaysOnTop(true);
+
     //await windowManager.setAlwaysOnTop(true);
   });
 
@@ -37,10 +38,10 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with WindowListener {
   MyApp({Key? key}) : super(key: key);
   static late WindowManager windowManager;
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -80,14 +81,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WindowListener {
   String status = "MINIMIZE";
   Module? moduleSelected;
   late TabController _tabController;
 
   @override
+  void onWindowFocus() {
+    setState(() {});
+  }
+
+  @override
   void initState() {
     super.initState();
+    windowManager.addListener(this);
     _tabController =
         TabController(vsync: this, length: Module.moduleList.length);
   }
@@ -135,8 +142,8 @@ class _MyHomePageState extends State<MyHomePage>
                         controller: _tabController,
                         tabs: List.generate(Module.moduleList.length, (index) {
                           return Tab(
-                                  child: _buildModuleIcon(
-                                      Module.moduleList[index]));
+                              child:
+                                  _buildModuleIcon(Module.moduleList[index]));
                         })))
               ]),
               Expanded(
@@ -145,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage>
                       children:
                           List.generate(Module.moduleList.length, (index) {
                         return Module.moduleList[index].mainPage;
-                  })))
+                      })))
             ])));
   }
 
@@ -202,7 +209,6 @@ class _MyHomePageState extends State<MyHomePage>
     return CircleAvatar(
       backgroundColor: Colors.transparent,
       backgroundImage: NetworkImage(module.image),
-    )
-    ;
+    );
   }
 }
