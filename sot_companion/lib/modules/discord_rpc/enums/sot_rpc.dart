@@ -156,7 +156,7 @@ enum SOTRPC_Activity {
       "Sea fort",
       "https://static.wikia.nocookie.net/seaofthieves_gamepedia/images/8/86/Sea_Forts.jpg/revision/latest/scale-to-width-down/250?cb=20220303173328",
       "sea_forts",
-      "Conquer"),
+      "Conquering a Sea fort"),
   O_SANCTUARY(
       "Sanctuary",
       "https://static.wikia.nocookie.net/seaofthieves_gamepedia/images/6/6f/Siren_Shrines.jpg/revision/latest/scale-to-width-down/250?cb=20210926215921",

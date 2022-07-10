@@ -25,7 +25,7 @@ class _SelectShipRPC_PageState extends State<SelectShipRPC_Page> {
   Widget _buildShipWidget(SOTRPC_Ship ship) {
     return ListTile(
       title: Text(ship.name, style: TextStyle(color: Colors.white)),
-      subtitle: Text("${ship.maxCrewSize} joueurs maximum",
+      subtitle: Text("${ship.maxCrewSize} players",
           style: TextStyle(color: Colors.white)),
       leading: CircleAvatar(backgroundImage: NetworkImage(ship.image)),
       onTap: () async {
@@ -66,7 +66,7 @@ class _SelectShipCrewSize_PageState extends State<SelectShipCrewSize_Page> {
   Widget _buildCrewSizeWidget(int num) {
     return ListTile(
         title: Text("$num pirates", style: TextStyle(color: Colors.white)),
-        subtitle: Text("Vous êtes $num pirates",
+        subtitle: Text("You are $num pirates on the ship",
             style: TextStyle(color: Colors.white)),
         onTap: () {
           SOTRPC.currentActivity.crewSize = num;

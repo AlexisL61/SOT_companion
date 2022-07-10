@@ -50,7 +50,7 @@ class _RPC_PageState extends State<RPC_Page> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
             Text(
-              "Bateau",
+              "Ship",
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
             SizedBox(
@@ -80,7 +80,7 @@ class _RPC_PageState extends State<RPC_Page> {
             Text(
               SOTRPC.currentActivity.ship != null
                   ? SOTRPC.currentActivity.ship!.name
-                  : "Aucun bateau",
+                  : "No ship selected",
               style: TextStyle(fontSize: 15, color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -95,7 +95,7 @@ class _RPC_PageState extends State<RPC_Page> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
             Text(
-              "Aventure",
+              "Activity",
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
             SizedBox(
@@ -126,7 +126,7 @@ class _RPC_PageState extends State<RPC_Page> {
             Text(
               SOTRPC.currentActivity.activity != null
                   ? SOTRPC.currentActivity.activity!.name
-                  : "Aucune\naventure",
+                  : "No activity selected",
               style: TextStyle(fontSize: 15, color: Colors.white),
               textAlign: TextAlign.center,
             ),
