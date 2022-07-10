@@ -29,7 +29,7 @@ class SOTRPC {
   void update() {
     rpc.updatePresence(DiscordPresence(
       state: activity != null ? activity!.discordText : null,
-      details: ship != null ? "Sur un " + ship!.name + " ("+crewSize.toString()+"/"+ship!.maxCrewSize.toString()+")" : null,
+      details: ship != null ? "On a " + ship!.name + " ("+crewSize.toString()+"/"+ship!.maxCrewSize.toString()+")" : null,
       largeImageKey: activity != null ? activity!.discordKey : null,
       largeImageText: activity != null ? activity!.discordText : null,
       startTimeStamp: DateTime.now().millisecondsSinceEpoch,

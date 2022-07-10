@@ -1,17 +1,17 @@
 # SOT_Companion
 
-Un simple overlay pour Sea of Thieves
+An overlay for Sea of Thieves.
 
-## Fonctionnalités
+## Features
 
-- Permet de savoir le temps pour cuire un aliment
-- Permet de montrer ce que vous faites sur le jeu avec la compatibilité Rich Presence de Discord
-- Permet de voir les différents sites proposant des cartes de Sea of Thieves (rarethief et merfolk's lullaby)
+- Show the time left when you are cooking food.
+- Show what you are doing on the sea on Discord (using rich presence).
+- Show interactive maps in game (RareThief and Merfolk's Lullaby).
 
-* Il est possible d'accéder à l'overlay en jeu en faisant apparaitre la souris avec le raccourci ALT + S
+* You can see your mouse in game (even if you are not in a menu) by doing the ALT + S shortcut, you will then be able to use the overlay.
 
 ## Crédits
 
-L'overlay utilise les sites suivants pour le module "map" :
+The overlay is using these websites:
 - https://www.merfolkslullaby.com/
 - https://maps.seaofthieves.rarethief.com/
